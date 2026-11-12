@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy 22nd Birthday Baby!!</title>
+  <link rel="stylesheet" href="style.css?v=2.2">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@700&family=Montserrat:wght@600;700;800&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Background Animated Stars Canvas (No Hearts) -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Confetti Canvas Overlay -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Main Container holding all 3 Pages -->
+  <main class="app-container">
+
+    <!-- ============================================== -->
+    <!-- PAGE 1: BIRTHDAY COUNTDOWN TIMER               -->
+    <!-- ============================================== -->
+    <section id="page-1" class="page-view active">
+      <div class="glass-card timer-card">
+        <div class="badge-pill">A Special Surprise For You</div>
+        <h1 class="page-title">Counting Down to Your Birthday</h1>
+        <p class="subtitle">Counting down to the most wonderful day of the year...</p>
+
+        <!-- Countdown Timer Display -->
+        <div class="countdown-grid">
+          <div class="time-box">
+            <span class="time-value" id="days">00</span>
+            <span class="time-unit">Days</span>
+          </div>
+          <div class="time-separator">:</div>
+          <div class="time-box">
+            <span class="time-value" id="hours">00</span>
+            <span class="time-unit">Hours</span>
+          </div>
+          <div class="time-separator">:</div>
+          <div class="time-box">
+            <span class="time-value" id="minutes">00</span>
+            <span class="time-unit">Minutes</span>
+          </div>
+          <div class="time-separator">:</div>
+          <div class="time-box pulse">
+            <span class="time-value" id="seconds">00</span>
+            <span class="time-unit">Seconds</span>
+          </div>
+        </div>
+
+        <!-- Unlock / Next Page Button (Appears when timer reaches 0) -->
+        <div id="unlock-container" class="unlock-container hidden">
+          <div class="birthday-banner-sparkle">HAPPY BIRTHDAY BAOBEIIII</div>
+          <button id="btn-goto-page2" onclick="goToPage2()" class="primary-btn glow-btn pulse-btn">
+            <span>Open Surprise</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- PAGE 2: BEAR HOLDING CAKE & BLOW CANDLES       -->
+    <!-- ============================================== -->
+    <section id="page-2" class="page-view hidden-page">
+      <div class="glass-card bear-page-card">
+        
+        <!-- Speech Bubble -->
+        <div class="speech-bubble" id="bear-speech">
+          <span class="speech-text">Happy 22nd Birthday Baby!!</span>
+        </div>
+
+        <!-- Bear & Birthday Cake Illustration (Interactive SVG) -->
+        <div class="bear-illustration-wrapper">
+          <svg class="bear-svg" viewBox="0 0 360 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="flameGrad" cx="50%" cy="80%" r="60%">
+                <stop offset="0%" stop-color="#fffb91"/>
+                <stop offset="40%" stop-color="#ff9d00"/>
+                <stop offset="100%" stop-color="#ff3b30"/>
+              </radialGradient>
+              <filter id="flameGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+                <feMerge>
+                  <feMergeNode in="blur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <linearGradient id="bearBodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#d9a779"/>
+                <stop offset="100%" stop-color="#b87b47"/>
+              </linearGradient>
+              <linearGradient id="cakeCreamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fff5f5"/>
+                <stop offset="100%" stop-color="#ffd5e5"/>
+              </linearGradient>
+              <linearGradient id="cakeBaseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#f8a5c2"/>
+                <stop offset="100%" stop-color="#f78fb3"/>
+              </linearGradient>
+            </defs>
+
+            <!-- Party Hat on Bear -->
+            <g id="party-hat" transform="translate(180, 50)">
+              <polygon points="0,-45 -22,12 22,12" fill="#ff7675" />
+              <polygon points="0,-45 -10,12 0,12" fill="#ffeaa7" />
+              <polygon points="0,-45 10,12 20,12" fill="#74b9ff" />
+              <circle cx="0" cy="-48" r="9" fill="#ffeaa7"/>
+              <circle cx="0" cy="-48" r="6" fill="#fab1a0"/>
+            </g>
+
+            <!-- Bear Left Ear -->
+            <circle cx="115" cy="100" r="34" fill="url(#bearBodyGrad)" stroke="#a16738" stroke-width="3"/>
+            <circle cx="115" cy="100" r="20" fill="#f8a5c2" opacity="0.85"/>
+
+            <!-- Bear Right Ear -->
+            <circle cx="245" cy="100" r="34" fill="url(#bearBodyGrad)" stroke="#a16738" stroke-width="3"/>
+            <circle cx="245" cy="100" r="20" fill="#f8a5c2" opacity="0.85"/>
+
+            <!-- Bear Head -->
+            <ellipse cx="180" cy="145" rx="76" ry="68" fill="url(#bearBodyGrad)" stroke="#a16738" stroke-width="3"/>
+
+            <!-- Bear Eyes -->
+            <g id="bear-eyes">
+              <!-- Normal Eyes -->
+              <circle class="eye-normal" cx="150" cy="135" r="9" fill="#2d3436"/>
+              <circle class="eye-normal" cx="147" cy="132" r="3" fill="#ffffff"/>
+              <circle class="eye-normal" cx="210" cy="135" r="9" fill="#2d3436"/>
+              <circle class="eye-normal" cx="207" cy="132" r="3" fill="#ffffff"/>
+
+              <!-- Happy Winking Eyes (Shown after blowing candles) -->
+              <path class="eye-happy hidden-svg" d="M 140 137 Q 150 125 160 137" fill="none" stroke="#2d3436" stroke-width="4" stroke-linecap="round"/>
+              <path class="eye-happy hidden-svg" d="M 200 137 Q 210 125 220 137" fill="none" stroke="#2d3436" stroke-width="4" stroke-linecap="round"/>
+            </g>
+
+            <!-- Rosy Cheeks -->
+            <ellipse cx="132" cy="155" rx="14" ry="9" fill="#ff7675" opacity="0.6"/>
+            <ellipse cx="228" cy="155" rx="14" ry="9" fill="#ff7675" opacity="0.6"/>
+
+            <!-- Snout -->
+            <ellipse cx="180" cy="158" rx="26" ry="20" fill="#fff5eb"/>
+            <ellipse cx="180" cy="150" rx="9" ry="6" fill="#3e2723"/>
+            <path d="M 180 156 L 180 165 M 172 165 Q 180 174 188 165" fill="none" stroke="#3e2723" stroke-width="3" stroke-linecap="round"/>
+
+            <!-- Bear Body -->
+            <path d="M 115 190 Q 100 280 120 340 L 240 340 Q 260 280 245 190 Z" fill="url(#bearBodyGrad)" stroke="#a16738" stroke-width="3"/>
+            <ellipse cx="180" cy="270" rx="42" ry="48" fill="#fff5eb" opacity="0.7"/>
+
+            <!-- BIRTHDAY CAKE -->
+            <g id="cake-group" transform="translate(0, 10)">
+              <!-- Stand -->
+              <ellipse cx="180" cy="335" rx="96" ry="16" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2"/>
+              <ellipse cx="180" cy="331" rx="90" ry="13" fill="#ffffff"/>
+
+              <!-- Bottom Tier -->
+              <rect x="105" y="270" width="150" height="52" rx="10" fill="url(#cakeBaseGrad)" stroke="#e17055" stroke-width="1.5"/>
+              <path d="M 105 275 Q 115 292 125 275 Q 135 295 145 275 Q 155 290 165 275 Q 175 296 185 275 Q 195 292 205 275 Q 215 295 225 275 Q 235 290 245 275 Q 255 285 255 275" fill="none" stroke="url(#cakeCreamGrad)" stroke-width="9" stroke-linecap="round"/>
+
+              <!-- Top Tier -->
+              <rect x="125" y="228" width="110" height="46" rx="8" fill="url(#cakeBaseGrad)" stroke="#e17055" stroke-width="1.5"/>
+              <path d="M 125 234 Q 135 248 145 234 Q 155 252 165 234 Q 175 250 185 234 Q 195 250 205 234 Q 215 250 225 234 Q 235 242 235 234" fill="none" stroke="url(#cakeCreamGrad)" stroke-width="8" stroke-linecap="round"/>
+
+              <!-- Decorative Cherries -->
+              <circle cx="140" cy="226" r="6" fill="#e84118"/>
+              <circle cx="160" cy="224" r="6" fill="#e84118"/>
+              <circle cx="180" cy="223" r="7" fill="#e84118"/>
+              <circle cx="200" cy="224" r="6" fill="#e84118"/>
+              <circle cx="220" cy="226" r="6" fill="#e84118"/>
+
+              <!-- CANDLES -->
+              <!-- Candle 1 -->
+              <g id="candle-1" transform="translate(150, 192)">
+                <rect x="-4" y="0" width="8" height="32" rx="2" fill="#74b9ff"/>
+                <line x1="-3" y1="8" x2="3" y2="4" stroke="#ffffff" stroke-width="2"/>
+                <line x1="-3" y1="18" x2="3" y2="14" stroke="#ffffff" stroke-width="2"/>
+                <line x1="0" y1="0" x2="0" y2="-7" stroke="#2d3436" stroke-width="1.8"/>
+                <path class="candle-flame" id="flame-1" d="M 0 -7 Q -6 -18 0 -26 Q 6 -18 0 -7 Z" fill="url(#flameGrad)" filter="url(#flameGlow)"/>
+                <path class="candle-smoke hidden-svg" id="smoke-1" d="M 0 -8 Q -5 -22 2 -32 Q 8 -42 -2 -52" fill="none" stroke="#b2bec3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 2"/>
+              </g>
+
+              <!-- Candle 2 -->
+              <g id="candle-2" transform="translate(180, 186)">
+                <rect x="-4" y="0" width="8" height="38" rx="2" fill="#fab1a0"/>
+                <line x1="-3" y1="10" x2="3" y2="6" stroke="#ffffff" stroke-width="2"/>
+                <line x1="-3" y1="22" x2="3" y2="18" stroke="#ffffff" stroke-width="2"/>
+                <line x1="0" y1="0" x2="0" y2="-7" stroke="#2d3436" stroke-width="1.8"/>
+                <path class="candle-flame" id="flame-2" d="M 0 -7 Q -7 -20 0 -29 Q 7 -20 0 -7 Z" fill="url(#flameGrad)" filter="url(#flameGlow)"/>
+                <path class="candle-smoke hidden-svg" id="smoke-2" d="M 0 -8 Q 6 -24 -2 -36 Q -8 -46 3 -56" fill="none" stroke="#b2bec3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 2"/>
+              </g>
+
+              <!-- Candle 3 -->
+              <g id="candle-3" transform="translate(210, 192)">
+                <rect x="-4" y="0" width="8" height="32" rx="2" fill="#55efc4"/>
+                <line x1="-3" y1="8" x2="3" y2="4" stroke="#ffffff" stroke-width="2"/>
+                <line x1="-3" y1="18" x2="3" y2="14" stroke="#ffffff" stroke-width="2"/>
+                <line x1="0" y1="0" x2="0" y2="-7" stroke="#2d3436" stroke-width="1.8"/>
+                <path class="candle-flame" id="flame-3" d="M 0 -7 Q -6 -18 0 -26 Q 6 -18 0 -7 Z" fill="url(#flameGrad)" filter="url(#flameGlow)"/>
+                <path class="candle-smoke hidden-svg" id="smoke-3" d="M 0 -8 Q -7 -20 1 -32 Q 7 -44 -1 -54" fill="none" stroke="#b2bec3" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 2"/>
+              </g>
+            </g>
+
+            <!-- Bear Paws -->
+            <ellipse cx="108" cy="285" rx="18" ry="14" fill="#d9a779" stroke="#a16738" stroke-width="2.5" transform="rotate(-15, 108, 285)"/>
+            <circle cx="102" cy="283" r="3.5" fill="#fff5eb"/>
+            <circle cx="108" cy="280" r="3.5" fill="#fff5eb"/>
+            <circle cx="114" cy="282" r="3.5" fill="#fff5eb"/>
+
+            <ellipse cx="252" cy="285" rx="18" ry="14" fill="#d9a779" stroke="#a16738" stroke-width="2.5" transform="rotate(15, 252, 285)"/>
+            <circle cx="246" cy="282" r="3.5" fill="#fff5eb"/>
+            <circle cx="252" cy="280" r="3.5" fill="#fff5eb"/>
+            <circle cx="258" cy="283" r="3.5" fill="#fff5eb"/>
+          </svg>
+        </div>
+
+        <!-- Instruction & Interactive Buttons -->
+        <p class="candle-hint" id="blow-hint">Make a wish and blow out the candles.</p>
+
+        <div class="actions-group">
+          <!-- Blow Candle Button -->
+          <button id="btn-blow-candles" onclick="blowCandles()" class="primary-btn glow-btn">
+            <span>Blow Candles</span>
+          </button>
+
+          <!-- Prompted Button to enter Page 3 -->
+          <button id="btn-goto-page3" onclick="goToPage3()" class="primary-btn celebrate-btn hidden">
+            <span>Read Letter</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ============================================== -->
+    <!-- PAGE 3: LOVE LETTER & POLAROID PHOTO GALLERY   -->
+    <!-- ============================================== -->
+    <section id="page-3" class="page-view hidden-page">
+      <div class="page-3-layout">
+        
+        <!-- Top Header -->
+        <div class="page-3-header">
+          <span class="badge-pill">Happy Birthday</span>
+          <h2 class="romantic-header">To My Favorite Person In The World</h2>
+        </div>
+
+        <div class="gallery-and-letter-grid">
+          
+          <!-- LEFT SIDE: PHOTOS OF HER (Top Left & Bottom Left) -->
+          <div class="side-column side-left">
+            
+            <!-- Photo 1: Top Left -->
+            <div class="polaroid-card tilt-left" data-photo="images/photo1.png" data-caption="Our first picture together">
+              <div class="tape-strip"></div>
+              <div class="photo-frame">
+                <img src="images/photo1.png" alt="Our first picture together" loading="lazy">
+              </div>
+              <p class="polaroid-caption">Our first picture together</p>
+            </div>
+
+            <!-- Photo 2: Bottom Left -->
+            <div class="polaroid-card tilt-right" data-photo="images/photo2.png" data-caption="The night when everything change">
+              <div class="tape-strip"></div>
+              <div class="photo-frame">
+                <img src="images/photo2.png" alt="The night when everything change" loading="lazy">
+              </div>
+              <p class="polaroid-caption">The night when everything change</p>
+            </div>
+
+          </div>
+
+          <!-- CENTER: HEARTFELT SHORT PARAGRAPH -->
+          <div class="center-column">
+            <article class="letter-card glass-card">
+              <h3 class="letter-greeting">Shengri kuaile, wo de baobei!</h3>
+              
+              <div class="letter-body">
+                <p>
+                  As promised on your birthday, I said I would create a website for you, and here it is! Today is someone's special dayyy!!!!!! Yayy!!!
+                </p>
+                <p>
+                  I'm truly grateful that you gave me a chance to enter your life and that I get to celebrate your birthday with you. I love you soo soo muchhhh!!!
+                </p>
+                <p>
+                  I know I may not be perfect or the guy of your dreams, but I promise I'll always try my best to become someone you want and deserve. I really hope you like the gift I got for you. I know it's not much, but I promise that as we celebrate more birthdays together, your gifts will only get bigger and more meaningful.
+                </p>
+                <p>
+                  On your special day, I just want you to be the happiest girl on Earth. You deserve all the happiness in the world.
+                </p>
+                <p class="letter-declaration">
+                  Wo Ai Ni!!
+                </p>
+                <p class="letter-closing">
+                  From:<br>
+                  <span class="signature-font">Your beloved XiaoLu</span>
+                </p>
+              </div>
+
+              <!-- Romantic interactive footer -->
+              <div class="letter-actions">
+                <button id="btn-replay" onclick="replaySurprise()" class="secondary-btn-pill">
+                  <span>Replay</span>
+                </button>
+              </div>
+            </article>
+          </div>
+
+          <!-- RIGHT SIDE: PHOTOS OF HER (Top Right & Bottom Right) -->
+          <div class="side-column side-right">
+            
+            <!-- Photo 3: Top Right -->
+            <div class="polaroid-card tilt-right" data-photo="images/photo3.jpg" data-caption="My favourite pic heheh">
+              <div class="tape-strip"></div>
+              <div class="photo-frame">
+                <img src="images/photo3.jpg" alt="My favourite pic heheh" loading="lazy">
+              </div>
+              <p class="polaroid-caption">My favourite pic heheh</p>
+            </div>
+
+            <!-- Photo 4: Bottom Right -->
+            <div class="polaroid-card tilt-left" data-photo="images/photo4.png" data-caption="My silly girl">
+              <div class="tape-strip"></div>
+              <div class="photo-frame">
+                <img src="images/photo4.png" alt="My silly girl" loading="lazy">
+              </div>
+              <p class="polaroid-caption">My silly girl</p>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Photo Lightbox Modal (Click to zoom photo) -->
+  <div id="photo-modal" class="modal-overlay hidden">
+    <div class="modal-content glass-card">
+      <button id="modal-close-btn" class="modal-close" aria-label="Close photo">&times;</button>
+      <div class="modal-img-wrapper">
+        <img id="modal-img" src="" alt="Enlarged photo">
+      </div>
+      <p id="modal-caption" class="modal-caption-text"></p>
+    </div>
+  </div>
+
+  <script src="script.js?v=2.1"></script>
+</body>
+</html>
