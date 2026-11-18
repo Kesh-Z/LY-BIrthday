@@ -144,78 +144,22 @@ window.replaySurprise = function() {
 document.addEventListener('DOMContentLoaded', () => {
 
   // ========================================================
-  // 1. COUNTDOWN TIMER LOGIC (Page 1)
+  // 1. COUNTDOWN TIMER LOGIC (Page 1) - Set to 00:00:00
   // ========================================================
   const daysEl = document.getElementById('days');
   const hoursEl = document.getElementById('hours');
   const minutesEl = document.getElementById('minutes');
   const secondsEl = document.getElementById('seconds');
   const unlockContainer = document.getElementById('unlock-container');
-  const targetDateText = document.getElementById('target-date-text');
-  const btnQuickPreview = document.getElementById('btn-quick-preview');
 
   if (daysEl && hoursEl && minutesEl && secondsEl) {
-    const now = new Date();
-    let targetYear = now.getFullYear();
-    let birthdayTarget = new Date(targetYear, 10, 14, 0, 0, 0);
+    daysEl.textContent = '00';
+    hoursEl.textContent = '00';
+    minutesEl.textContent = '00';
+    secondsEl.textContent = '00';
 
-    const endOfBirthday = new Date(targetYear, 10, 14, 23, 59, 59);
-    if (now > endOfBirthday) {
-      birthdayTarget = new Date(targetYear + 1, 10, 14, 0, 0, 0);
-    }
-
-    if (targetDateText) {
-      targetDateText.textContent = `November 14, ${birthdayTarget.getFullYear()}`;
-    }
-
-    let isTimerUnlocked = false;
-
-    function triggerTimerReached() {
-      if (isTimerUnlocked) return;
-      isTimerUnlocked = true;
-      if (unlockContainer) {
-        unlockContainer.classList.remove('hidden');
-      }
-    }
-
-    function updateCountdown() {
-      const currentTime = new Date();
-      const diff = birthdayTarget - currentTime;
-
-      if (diff <= 0 || (currentTime.getMonth() === 10 && currentTime.getDate() === 14)) {
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-        triggerTimerReached();
-        return;
-      }
-
-      const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-      daysEl.textContent = String(d).padStart(2, '0');
-      hoursEl.textContent = String(h).padStart(2, '0');
-      minutesEl.textContent = String(m).padStart(2, '0');
-      secondsEl.textContent = String(s).padStart(2, '0');
-    }
-
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    if (btnQuickPreview) {
-      btnQuickPreview.addEventListener('click', () => {
-        daysEl.textContent = '00';
-        hoursEl.textContent = '00';
-        minutesEl.textContent = '00';
-        secondsEl.textContent = '00';
-        triggerTimerReached();
-        if (unlockContainer) {
-          unlockContainer.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+    if (unlockContainer) {
+      unlockContainer.classList.remove('hidden');
     }
   }
 
